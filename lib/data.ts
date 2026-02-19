@@ -1,34 +1,29 @@
+// ─── Types ──────────────────────────────────────────────────────────────────
+
 export type ExamKey = "upsc" | "jee" | "neet" | "ssc";
 
 export interface Exam {
   key: ExamKey;
   name: string;
   fullName: string;
+  description: string;
   tools: string[];
   href: string;
-  tagColor: string;
-  borderColor: string;
-  textColor: string;
-  linkColor: string;
+  accentBorder: string;
+  accentText: string;
+  accentLink: string;
 }
 
 export interface Tool {
   icon: string;
   title: string;
   description: string;
+  exam: string;
   badge: "Free" | "Pro";
   href: string;
 }
 
-export interface Testimonial {
-  quote: string;
-  author: string;
-  exam: ExamKey;
-  dotColor: string;
-}
-
 export interface TrustPoint {
-  icon: string;
   title: string;
   description: string;
 }
@@ -38,79 +33,103 @@ export interface FaqItem {
   answer: string;
 }
 
+export interface Step {
+  num: string;
+  title: string;
+  description: string;
+}
+
+// ─── Navigation ─────────────────────────────────────────────────────────────
+
+export const NAV_LINKS = [
+  { label: "Exams", href: "#exams" },
+  { label: "Tools", href: "#tools" },
+  { label: "How It Works", href: "#how-it-works" },
+  { label: "FAQ", href: "#faq" },
+] as const;
+
+// ─── Exams ───────────────────────────────────────────────────────────────────
+
 export const EXAMS: Exam[] = [
   {
     key: "upsc",
     name: "UPSC",
     fullName: "Civil Services Examination",
+    description:
+      "Tools built around GS papers, essay, and answer writing — mapped to the UPSC CSE syllabus.",
     tools: [
       "Answer writing evaluator",
-      "Current affairs summariser",
+      "Current affairs digest",
       "Mains essay structurer",
-      "Prelims mock quizzes",
+      "Prelims practice quizzes",
     ],
     href: "/upsc",
-    tagColor: "bg-exam-upsc-bg text-exam-upsc",
-    borderColor: "border-t-exam-upsc",
-    textColor: "text-exam-upsc",
-    linkColor: "text-exam-upsc",
+    accentBorder: "border-t-violet-600",
+    accentText: "text-violet-700",
+    accentLink: "text-violet-700 group-hover:text-violet-800",
   },
   {
     key: "jee",
     name: "JEE",
     fullName: "Joint Entrance Examination",
+    description:
+      "Step-by-step problem solving and concept gap analysis for Physics, Chemistry, and Mathematics.",
     tools: [
       "Step-by-step problem solver",
       "Concept gap identifier",
       "Formula revision sheets",
-      "Chapterwise mock tests",
+      "Chapter-wise practice sets",
     ],
     href: "/jee",
-    tagColor: "bg-exam-jee-bg text-exam-jee",
-    borderColor: "border-t-exam-jee",
-    textColor: "text-exam-jee",
-    linkColor: "text-exam-jee",
+    accentBorder: "border-t-sky-600",
+    accentText: "text-sky-700",
+    accentLink: "text-sky-700 group-hover:text-sky-800",
   },
   {
     key: "neet",
     name: "NEET",
     fullName: "National Eligibility cum Entrance Test",
+    description:
+      "Biology, Physics, and Chemistry tools aligned with NCERT content and NEET exam pattern.",
     tools: [
       "Biology diagram explainer",
       "NCERT passage analyser",
-      "Revision flashcard generator",
-      "Previous year Q&A bot",
+      "Flashcard generator",
+      "Previous year Q&A",
     ],
     href: "/neet",
-    tagColor: "bg-exam-neet-bg text-exam-neet",
-    borderColor: "border-t-exam-neet",
-    textColor: "text-exam-neet",
-    linkColor: "text-exam-neet",
+    accentBorder: "border-t-emerald-600",
+    accentText: "text-emerald-700",
+    accentLink: "text-emerald-700 group-hover:text-emerald-800",
   },
   {
     key: "ssc",
     name: "SSC",
     fullName: "Staff Selection Commission",
+    description:
+      "Quant, English, and GK tools designed for CGL, CHSL, and MTS exam patterns.",
     tools: [
       "Quant shortcut trainer",
       "English grammar drills",
       "GK topic-wise notes",
-      "Speed & accuracy tracker",
+      "Speed and accuracy tracker",
     ],
     href: "/ssc",
-    tagColor: "bg-exam-ssc-bg text-exam-ssc",
-    borderColor: "border-t-exam-ssc",
-    textColor: "text-exam-ssc",
-    linkColor: "text-exam-ssc",
+    accentBorder: "border-t-amber-600",
+    accentText: "text-amber-700",
+    accentLink: "text-amber-700 group-hover:text-amber-800",
   },
 ];
+
+// ─── Tools ───────────────────────────────────────────────────────────────────
 
 export const TOOLS: Tool[] = [
   {
     icon: "✍️",
     title: "Answer Writing Coach",
     description:
-      "Paste your UPSC Mains answer. Get feedback on structure, content relevance, intro/conclusion quality, and a score with improvement tips.",
+      "Submit your UPSC Mains answer and receive structured feedback on argument quality, factual accuracy, and presentation — with an indicative score.",
+    exam: "UPSC",
     badge: "Pro",
     href: "/tools/answer-writing-coach",
   },
@@ -118,7 +137,8 @@ export const TOOLS: Tool[] = [
     icon: "🧮",
     title: "JEE Problem Breakdown",
     description:
-      "Enter any Physics, Chemistry, or Maths problem. The tool walks through each step with clear explanations — not just the final answer.",
+      "Paste any JEE problem in Physics, Chemistry, or Maths. The tool works through it step by step, explaining the reasoning at each stage.",
+    exam: "JEE",
     badge: "Free",
     href: "/tools/jee-problem-breakdown",
   },
@@ -126,7 +146,8 @@ export const TOOLS: Tool[] = [
     icon: "📰",
     title: "Current Affairs Digest",
     description:
-      "Daily news simplified with UPSC relevance tags. Connects events to static syllabus topics so you know exactly what to revise.",
+      "Daily news summarised with explicit tags showing which GS papers and static topics each story connects to.",
+    exam: "UPSC",
     badge: "Free",
     href: "/tools/current-affairs",
   },
@@ -134,7 +155,8 @@ export const TOOLS: Tool[] = [
     icon: "🗂️",
     title: "Flashcard Generator",
     description:
-      "Paste any notes or NCERT chapter text. The tool creates concise flashcards you can review and export — works for NEET and SSC GK.",
+      "Paste chapter notes or NCERT text. The tool produces concise, exportable flashcards suited to NEET biology and SSC GK revision.",
+    exam: "NEET · SSC",
     badge: "Free",
     href: "/tools/flashcard-generator",
   },
@@ -142,7 +164,8 @@ export const TOOLS: Tool[] = [
     icon: "📊",
     title: "Weak Area Identifier",
     description:
-      "Take a short topic quiz. Based on your responses, the tool identifies knowledge gaps and suggests which subtopics to revisit first.",
+      "Answer a short diagnostic quiz. Based on your responses, the tool flags which subtopics need immediate revision before your next practice test.",
+    exam: "All exams",
     badge: "Pro",
     href: "/tools/weak-area-identifier",
   },
@@ -150,89 +173,87 @@ export const TOOLS: Tool[] = [
     icon: "📖",
     title: "NCERT Concept Explainer",
     description:
-      "Ask any question from NCERT Class 11–12. Get a clear, exam-oriented explanation with examples — no fluff, no off-syllabus content.",
+      "Ask any question from NCERT Class 11 or 12. Get a concise, exam-focused explanation without content that falls outside the official syllabus.",
+    exam: "JEE · NEET",
     badge: "Free",
     href: "/tools/ncert-explainer",
   },
 ];
 
-export const TRUST_POINTS: TrustPoint[] = [
+// ─── How It Works ────────────────────────────────────────────────────────────
+
+export const STEPS: Step[] = [
   {
-    icon: "📚",
-    title: "Syllabus-accurate, always",
+    num: "01",
+    title: "Select your exam",
     description:
-      "Every tool is constrained to official UPSC, JEE, NEET, and SSC syllabi. No irrelevant foreign exam content slips through.",
+      "Choose from UPSC, JEE, NEET, or SSC. All tools and content are filtered to match that exam's official syllabus and paper pattern.",
   },
   {
-    icon: "🎓",
-    title: "No misleading shortcuts",
+    num: "02",
+    title: "Use the right tool",
     description:
-      "We don't promise rank guarantees. We give you better tools and let your effort do the rest — honest and practical.",
+      "Each tool addresses a specific study task — writing practice, concept clarity, flashcard creation, or gap identification. No bloat, no overlap.",
   },
   {
-    icon: "🔒",
-    title: "Your data stays private",
+    num: "03",
+    title: "Identify and revise",
     description:
-      "Your queries, answers, and practice data are never shared or used to train external models without your consent.",
+      "Review AI feedback, bookmark explanations, and return to weak areas with targeted revision sets. Everything stays in one place.",
   },
 ];
 
-export const TESTIMONIALS: Testimonial[] = [
+// ─── Trust Points ────────────────────────────────────────────────────────────
+
+export const TRUST_POINTS: TrustPoint[] = [
   {
-    quote:
-      "The answer writing feedback is the most useful thing I've found in two years of UPSC prep. It's blunt, accurate, and specific.",
-    author: "Riya S. — UPSC 2024 aspirant, Delhi",
-    exam: "upsc",
-    dotColor: "bg-exam-upsc",
+    title: "Syllabus-constrained output",
+    description:
+      "Every tool is scoped to the official UPSC, JEE, NEET, or SSC syllabus. Explanations and practice content do not stray beyond what the exam tests.",
   },
   {
-    quote:
-      "I used the JEE problem explainer for a full month before my Mains. Finally understood the derivation behind formulas I was just memorising.",
-    author: "Arjun M. — JEE Advanced 2025, Pune",
-    exam: "jee",
-    dotColor: "bg-exam-jee",
+    title: "No rank guarantees",
+    description:
+      "We do not make claims about outcomes. This platform gives you better tools — your preparation effort determines your result.",
   },
   {
-    quote:
-      "The flashcard generator saved me weeks. I just paste my handwritten notes and it builds the revision set automatically.",
-    author: "Priya K. — NEET 2025 dropper, Chennai",
-    exam: "neet",
-    dotColor: "bg-exam-neet",
+    title: "Verify before you trust",
+    description:
+      "AI-generated content can contain errors. We recommend cross-checking factual output, particularly for UPSC, against authoritative sources.",
+  },
+  {
+    title: "Your queries are not stored",
+    description:
+      "Inputs you submit are not logged, retained, or used to retrain models. Each session is independent.",
   },
 ];
+
+// ─── FAQ ─────────────────────────────────────────────────────────────────────
 
 export const FAQ_ITEMS: FaqItem[] = [
   {
-    question: "Is Study AI Hub free to use?",
+    question: "Which tools are free?",
     answer:
-      "Core tools — including the NCERT explainer, flashcard generator, and problem breakdown — are completely free. Advanced tools like the answer writing coach and weak area tracker require a Pro subscription.",
+      "The NCERT Concept Explainer, JEE Problem Breakdown, Current Affairs Digest, and Flashcard Generator are free with no account required. The Answer Writing Coach and Weak Area Identifier require a Pro subscription.",
   },
   {
-    question: "Does this replace my coaching or books?",
+    question: "Does this replace coaching institutes or standard books?",
     answer:
-      "No, and we don't claim it does. This is a supplementary study aid. Use it alongside your standard preparation materials to clarify doubts, practise writing, and consolidate revision.",
+      "No. This is a supplementary tool. Use it alongside your textbooks and coaching material to clarify concepts, practise writing, and organise revision. It does not cover the full breadth of any exam on its own.",
   },
   {
-    question: "How accurate is the AI for exam-specific content?",
+    question: "How reliable is the AI for exam-specific content?",
     answer:
-      "All tools are tuned specifically to official syllabi and NCERT content. That said, always cross-verify factual claims against authoritative sources — especially for UPSC, where nuance matters.",
+      "Tools are scoped to official syllabi and NCERT content to reduce irrelevant output. However, AI can produce inaccurate information. Always verify answers against standard references, especially for factual questions in UPSC preparation.",
   },
   {
-    question: "Is the content available in Hindi?",
+    question: "Can I use it in Hindi?",
     answer:
-      "Hindi interface support is coming in Q2 2025. Currently, all tools work best in English, but you can ask questions in Hindi and receive responses in English.",
+      "You can ask questions in Hindi and receive responses in English. A full Hindi interface is planned and will be announced when available.",
   },
-];
-
-export const STATS = [
-  { num: "2.4L+", label: "Students" },
-  { num: "40+", label: "AI Tools" },
-  { num: "4", label: "Exams Covered" },
-];
-
-export const NAV_LINKS = [
-  { label: "Exams", href: "#exams" },
-  { label: "AI Tools", href: "#tools" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "FAQ", href: "#faq" },
+  {
+    question: "Is there a mobile app?",
+    answer:
+      "The web platform is fully responsive and works on mobile browsers. A dedicated app is on the roadmap.",
+  },
 ];

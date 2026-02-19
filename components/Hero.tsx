@@ -1,134 +1,105 @@
 import Link from "next/link";
-import { STATS } from "@/lib/data";
-
-const EXAM_PREVIEWS = [
-  {
-    tag: "UPSC",
-    tagClass: "bg-exam-upsc-bg text-exam-upsc",
-    title: "Answer Writing AI",
-    count: "8 tools",
-  },
-  {
-    tag: "JEE",
-    tagClass: "bg-exam-jee-bg text-exam-jee",
-    title: "Problem Explainer",
-    count: "11 tools",
-  },
-  {
-    tag: "NEET",
-    tagClass: "bg-exam-neet-bg text-exam-neet",
-    title: "Diagram Tutor",
-    count: "9 tools",
-  },
-  {
-    tag: "SSC",
-    tagClass: "bg-exam-ssc-bg text-exam-ssc",
-    title: "GK Flashcards",
-    count: "12 tools",
-  },
-];
+import { EXAMS } from "@/lib/data";
 
 export default function Hero() {
   return (
     <section
-      className="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
-      aria-label="Hero section"
+      className="max-w-6xl mx-auto px-6 pt-16 pb-14 grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-12 items-center"
+      aria-label="Introduction"
     >
-      {/* Left — text */}
+      {/* ── Left: Copy ─────────────────────────────── */}
       <div>
-        <p className="animate-fade-up flex items-center gap-2 text-xs tracking-widest uppercase text-accent font-medium mb-4">
-          <span className="inline-block w-6 h-px bg-accent" aria-hidden="true" />
-          Purpose-built for Indian students
+        <p className="anim-0 inline-flex items-center gap-2 text-xs font-medium tracking-widest uppercase text-accent mb-5">
+          <span className="block w-5 h-px bg-accent" aria-hidden="true" />
+          AI tools for Indian competitive exams
         </p>
 
-        <h1 className="animate-fade-up-1 font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-ink leading-tight tracking-tight mb-5">
-          Study Smarter.
+        <h1 className="anim-1 font-serif text-4xl sm:text-5xl lg:text-[3.25rem] font-bold text-ink leading-[1.1] tracking-tight mb-5">
+          Prepare with tools built
           <br />
-          Crack{" "}
-          <em className="not-italic text-accent">Your Exam.</em>
+          for{" "}
+          <em className="not-italic text-accent">your exam.</em>
         </h1>
 
-        <p className="animate-fade-up-2 text-ink-soft text-lg leading-relaxed mb-8 max-w-md">
-          AI-powered tools designed specifically for UPSC, JEE, NEET, and SSC
-          aspirants. Understand concepts faster, practice with intent, and track
-          what matters.
+        <p className="anim-2 text-ink-soft text-base sm:text-lg leading-relaxed mb-8 max-w-[42ch]">
+          Study AI Hub provides AI-assisted tools aligned to the UPSC, JEE,
+          NEET, and SSC syllabi — for concept clarity, answer practice, and
+          focused revision.
         </p>
 
-        <div className="animate-fade-up-3 flex flex-wrap items-center gap-4 mb-10">
+        <div className="anim-3 flex flex-wrap items-center gap-3">
           <Link
             href="#exams"
-            className="bg-ink text-paper px-6 py-3 rounded text-sm font-medium hover:bg-ink/90 transition-colors duration-150"
+            className="bg-ink text-paper text-sm font-medium px-5 py-2.5 rounded hover:bg-ink/90 transition-colors duration-150"
           >
-            Choose Your Exam →
+            Start Preparing →
           </Link>
           <Link
             href="#tools"
-            className="text-sm text-ink-soft border-b border-rule pb-px hover:text-ink hover:border-ink transition-colors duration-150"
+            className="text-sm text-ink-soft hover:text-ink border-b border-rule hover:border-ink-soft transition-colors duration-150 pb-px"
           >
-            See all AI tools ↓
+            Explore free tools
           </Link>
         </div>
-
-        {/* Stats */}
-        <dl className="animate-fade-up-4 flex items-center gap-6">
-          {STATS.map((stat, index) => (
-            <div key={stat.label} className="flex items-center gap-6">
-              <div>
-                <dt className="text-xs uppercase tracking-widest text-ink-muted">
-                  {stat.label}
-                </dt>
-                <dd className="font-serif text-2xl font-bold text-ink leading-tight">
-                  {stat.num}
-                </dd>
-              </div>
-              {index < STATS.length - 1 && (
-                <div
-                  className="w-px h-9 bg-rule"
-                  aria-hidden="true"
-                />
-              )}
-            </div>
-          ))}
-        </dl>
       </div>
 
-      {/* Right — visual preview */}
+      {/* ── Right: Exam preview panel ──────────────── */}
       <aside
-        className="hidden lg:block bg-paper-warm border border-rule rounded-lg p-7 animate-fade-up-2"
-        aria-label="Tool preview panel"
+        className="anim-2 hidden lg:block bg-paper-warm border border-rule rounded-xl p-6"
+        aria-label="Exam categories preview"
       >
-        <p className="text-xs uppercase tracking-widest text-ink-muted font-medium mb-5">
-          Exam-specific AI tools
+        <p className="text-[11px] font-medium uppercase tracking-widest text-ink-muted mb-4">
+          Select your exam to get started
         </p>
 
-        <div className="grid grid-cols-2 gap-3 mb-4">
-          {EXAM_PREVIEWS.map((exam) => (
-            <div
-              key={exam.tag}
-              className="bg-white border border-rule rounded-md p-4"
-            >
-              <span
-                className={`inline-block text-xs font-medium tracking-wide uppercase px-2 py-0.5 rounded mb-2 ${exam.tagClass}`}
+        <ul className="grid grid-cols-2 gap-2.5 list-none m-0 p-0" role="list">
+          {EXAMS.map((exam) => (
+            <li key={exam.key}>
+              <Link
+                href={exam.href}
+                className={`group block bg-white border border-rule border-t-4 ${exam.accentBorder} rounded-lg p-4 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent`}
+                aria-label={`${exam.name} — ${exam.fullName}`}
               >
-                {exam.tag}
-              </span>
-              <p className="text-sm font-medium text-ink leading-snug">
-                {exam.title}
-              </p>
-              <p className="text-xs text-ink-muted mt-0.5">{exam.count}</p>
-            </div>
+                <span
+                  className={`font-serif text-2xl font-bold leading-none block mb-1 ${exam.accentText}`}
+                >
+                  {exam.name}
+                </span>
+                <span className="block text-[11px] text-ink-muted leading-snug mb-3">
+                  {exam.fullName}
+                </span>
+                <span
+                  className={`text-xs font-medium flex items-center gap-1 transition-colors ${exam.accentLink}`}
+                >
+                  View tools
+                  <svg
+                    className="w-3 h-3 translate-x-0 group-hover:translate-x-0.5 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </span>
+              </Link>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        {/* Live query indicator */}
-        <div className="bg-white border border-rule rounded-md px-4 py-3 flex items-center gap-3">
+        {/* Live indicator */}
+        <div className="mt-3 bg-white border border-rule rounded-lg px-4 py-3 flex items-center gap-2.5">
           <span
-            className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0"
+            className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 animate-pulse"
             aria-hidden="true"
           />
-          <p className="text-xs text-ink-soft italic">
-            &ldquo;Explain Article 356 with past examples…&rdquo; — generating
-            answer
+          <p className="text-[11px] text-ink-muted italic leading-snug">
+            &ldquo;Explain Article 356 with past precedents…&rdquo;
           </p>
         </div>
       </aside>
