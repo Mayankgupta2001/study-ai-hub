@@ -3,11 +3,11 @@ import Link from "next/link";
 const FOOTER_COLUMNS = [
   {
     heading: "Exams",
-    links: [
-      { label: "UPSC", href: "/upsc" },
-      { label: "JEE", href: "/jee" },
-      { label: "NEET", href: "/neet" },
-      { label: "SSC", href: "/ssc" },
+      links: [
+      { label: "UPSC", href: "/ai-tools/upsc" },
+      { label: "JEE", href: "/ai-tools/jee" },
+      { label: "NEET", href: "/ai-tools/neet" },
+      { label: "SSC", href: "/ai-tools/ssc" },
     ],
   },
   {
@@ -23,18 +23,18 @@ const FOOTER_COLUMNS = [
     heading: "Platform",
     links: [
       { label: "How It Works", href: "#how-it-works" },
-      { label: "Pricing", href: "/pricing" },
-      { label: "Blog", href: "/blog" },
-      { label: "Changelog", href: "/changelog" },
+      { label: "Pricing", href: "#" },
+      { label: "Blog", href: "#" },
+      { label: "Changelog", href: "#" },
     ],
   },
   {
     heading: "Company",
     links: [
-      { label: "About", href: "/about" },
-      { label: "Privacy Policy", href: "/privacy" },
-      { label: "Terms of Use", href: "/terms" },
-      { label: "Contact", href: "/contact" },
+      { label: "About", href: "#" },
+      { label: "Privacy Policy", href: "#" },
+      { label: "Terms of Use", href: "#" },
+      { label: "Contact", href: "#" },
     ],
   },
 ];
