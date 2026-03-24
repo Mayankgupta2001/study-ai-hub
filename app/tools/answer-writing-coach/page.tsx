@@ -97,9 +97,35 @@ export default function AnswerWritingCoach() {
         <button
           onClick={handleEvaluate}
           disabled={isLoading}
-          className="px-4 py-2 bg-ink text-paper rounded"
+          className="px-4 py-2 bg-ink text-paper rounded inline-flex items-center gap-2 disabled:opacity-80"
         >
-          {isLoading ? "Evaluating..." : "Evaluate Answer"}
+          {isLoading ? (
+            <>
+              <svg
+                className="w-4 h-4 animate-spin"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-90"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                />
+              </svg>
+              <span>Evaluating your answer... This may take 15-20 seconds</span>
+            </>
+          ) : (
+            "Evaluate Answer"
+          )}
         </button>
         <Link href="/" className="px-4 py-2 border rounded">
           Home

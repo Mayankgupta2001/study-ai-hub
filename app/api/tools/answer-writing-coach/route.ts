@@ -6,7 +6,7 @@ import {
 } from "@/lib/validators/answerCoach";
 
 const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
-const modelName = "nvidia/nemotron-nano-9b-v2:free";
+const modelName = "google/gemma-3-4b-it:free";
 
 export async function POST(request: Request) {
   try {
