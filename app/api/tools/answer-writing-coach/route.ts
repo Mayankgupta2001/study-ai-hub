@@ -6,7 +6,7 @@ import {
 } from "@/lib/validators/answerCoach";
 
 const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
-const modelName = "mistralai/mistral-small-3.2-24b-instruct:free";
+const modelName = "stepfun/step-3.5-flash:free";
 
 export async function POST(request: Request) {
   try {
