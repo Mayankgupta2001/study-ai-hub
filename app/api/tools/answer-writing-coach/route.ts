@@ -6,7 +6,7 @@ import {
 } from "@/lib/validators/answerCoach";
 
 const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
-const modelName = "nvidia/nemotron-3-super:free";
+const modelName = "nvidia/nemotron-3-super-120b-a12b:free";
 
 type OpenRouterCompletionResult = {
   error?: { message?: string };
