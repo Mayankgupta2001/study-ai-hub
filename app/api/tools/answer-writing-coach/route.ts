@@ -6,7 +6,14 @@ import {
 } from "@/lib/validators/answerCoach";
 
 const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
-const modelName = "stepfun/step-3.5-flash:free";
+const modelName = "nvidia/nemotron-3-super:free";
+
+type OpenRouterCompletionResult = {
+  error?: { message?: string };
+  choices?: Array<{
+    message?: { content?: string; reasoning?: string };
+  }>;
+};
 
 export async function POST(request: Request) {
   try {
@@ -42,14 +49,11 @@ export async function POST(request: Request) {
       }),
     });
 
-    const completionJson = (await completionResponse.json()) as {
-      error?: { message?: string };
-      choices?: Array<{ message?: { content?: string } }>;
-    };
+    const result = (await completionResponse.json()) as OpenRouterCompletionResult;
 
     if (!completionResponse.ok) {
       const apiErrorMessage =
-        completionJson?.error?.message ?? "OpenRouter request failed.";
+        result?.error?.message ?? "OpenRouter request failed.";
       return NextResponse.json(
         {
           error: "Failed to evaluate answer.",
@@ -59,7 +63,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const rawText = completionJson.choices?.[0]?.message?.content?.trim() ?? "";
+    console.log(JSON.stringify(result));
+
+    const text =
+      result.choices?.[0]?.message?.content ||
+      result.choices?.[0]?.message?.reasoning ||
+      "";
+    const rawText = text.trim();
     const parsed = parseEvaluationJson(rawText);
 
     if (!parsed.ok) {
