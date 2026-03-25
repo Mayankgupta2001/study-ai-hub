@@ -95,6 +95,8 @@ export async function POST(request: Request) {
       console.log("AnswerWritingCoach extracted JSON:", extractedJson);
     }
 
+    return NextResponse.json({ debug: true, rawResponse: rawText });
+
     const parsed = parseEvaluationJson(extractedJson ?? rawText);
 
     if (!parsed.ok) {
