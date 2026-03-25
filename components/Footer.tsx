@@ -43,20 +43,20 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-ink border-t border-slate-800">
+    <footer className="bg-white border-t border-slate-200">
       <div className="max-w-6xl mx-auto px-6">
         {/* Main footer grid */}
-        <div className="py-14 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-10">
+        <div className="py-16 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-10">
           {/* Brand column */}
           <div className="col-span-2 lg:col-span-1">
             <Link
               href="/"
-              className="font-serif text-xl font-bold text-slate-300 inline-block mb-4"
+              className="font-dm-sans text-xl font-bold text-slate-900 inline-block mb-4"
               aria-label="Study AI Hub — Home"
             >
-              Study<span className="text-blue-400">AI</span>Hub
+              Study<span className="text-indigo-600">AI</span>Hub
             </Link>
-            <p className="text-sm text-slate-500 leading-relaxed max-w-[28ch]">
+            <p className="text-sm text-slate-600 leading-relaxed max-w-[28ch]">
               AI-assisted preparation tools for UPSC, JEE, NEET, and SSC
               aspirants.
             </p>
@@ -65,15 +65,15 @@ export default function Footer() {
           {/* Link columns */}
           {FOOTER_COLUMNS.map((col) => (
             <div key={col.heading}>
-              <h3 className="text-[11px] font-semibold uppercase tracking-widest text-slate-600 mb-4">
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-900 mb-5">
                 {col.heading}
               </h3>
-              <ul className="flex flex-col gap-2.5 list-none m-0 p-0" role="list">
+              <ul className="flex flex-col gap-3 list-none m-0 p-0" role="list">
                 {col.links.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-slate-500 hover:text-slate-300 transition-colors duration-150"
+                      className="text-sm text-slate-600 hover:text-slate-900 transition-colors duration-150"
                     >
                       {link.label}
                     </Link>
@@ -85,11 +85,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-slate-800 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-slate-700">
+        <div className="border-t border-slate-200 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-slate-600">
             &copy; {year} Study AI Hub. All rights reserved.
           </p>
-          <p className="text-xs text-slate-700">
+          <p className="text-xs text-slate-600">
             Made in India for Indian aspirants.
           </p>
         </div>

@@ -101,151 +101,335 @@ export default function WeakAreaIdentifier() {
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-16">
-      <h1 className="font-serif text-3xl font-bold mb-6">Weak Area Identifier</h1>
-
-      <label className="block mb-2 text-sm font-medium">Exam type</label>
-      <select
-        value={examType}
-        onChange={(e) => setExamType(e.target.value as "UPSC" | "JEE" | "NEET" | "SSC")}
-        className="w-full p-3 border rounded mb-4"
-      >
-        <option value="UPSC">UPSC</option>
-        <option value="JEE">JEE</option>
-        <option value="NEET">NEET</option>
-        <option value="SSC">SSC</option>
-      </select>
-
-      <div className="rounded-xl border border-rule bg-white p-4 mb-5">
-        <div className="flex flex-col sm:flex-row gap-3">
-          <div className="flex-1">
-            <label className="block mb-2 text-sm font-medium">Topic</label>
-            <input
-              value={topicInput}
-              onChange={(e) => setTopicInput(e.target.value)}
-              className="w-full p-3 border rounded"
-              placeholder="E.g., Waves, Organic Chemistry, Mensuration..."
-            />
-          </div>
-          <div className="w-full sm:w-40">
-            <label className="block mb-2 text-sm font-medium">Self rating (1-5)</label>
-            <input
-              type="number"
-              min={1}
-              max={5}
-              value={ratingInput}
-              onChange={(e) => setRatingInput(Number(e.target.value) || 1)}
-              className="w-full p-3 border rounded"
-            />
-          </div>
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-white">
+      <div className="max-w-4xl mx-auto px-6 py-16">
+        {/* Header */}
+        <div className="mb-8">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 font-medium text-sm mb-4"
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2.5}
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Home
+          </Link>
+          <h1 className="font-dm-sans text-4xl font-bold text-slate-900 mb-2">
+            Weak Area Identifier
+          </h1>
+          <p className="text-slate-600 text-base leading-relaxed">
+            Rate your topics from 1-5 and get personalized insights on your weak areas, strong
+            areas, and a customized study plan.
+          </p>
         </div>
 
-        <div className="flex gap-3 mt-4">
-          <button
-            onClick={addTopic}
-            disabled={topics.length >= 12}
-            className="px-4 py-2 bg-ink text-paper rounded disabled:opacity-80"
-          >
-            Add topic
-          </button>
-          <button
-            onClick={() => {
-              setTopics([]);
-              setError(null);
-            }}
-            className="px-4 py-2 border rounded"
-            disabled={topics.length === 0}
-          >
-            Clear
-          </button>
-        </div>
+        {/* Input Card */}
+        <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm mb-8">
+          <div className="space-y-6">
+            {/* Exam Type */}
+            <div>
+              <label className="block text-sm font-semibold text-slate-900 mb-3">
+                Exam Type
+              </label>
+              <select
+                value={examType}
+                onChange={(e) => setExamType(e.target.value as "UPSC" | "JEE" | "NEET" | "SSC")}
+                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900 bg-white"
+              >
+                <option value="UPSC">UPSC</option>
+                <option value="JEE">JEE</option>
+                <option value="NEET">NEET</option>
+                <option value="SSC">SSC</option>
+              </select>
+            </div>
 
-        {topics.length > 0 && (
-          <div className="mt-4">
-            <h3 className="text-sm font-semibold mb-2">Topics added</h3>
-            <ul className="space-y-2">
-              {topics.map((t) => (
-                <li
-                  key={t.topic}
-                  className="flex items-center justify-between gap-3 border border-rule bg-rule/5 rounded px-3 py-2"
-                >
-                  <span className="text-sm text-ink-soft">
-                    {t.topic}{" "}
-                    <span className="text-ink font-semibold">({t.rating}/5)</span>
-                  </span>
-                  <button
-                    onClick={() => removeTopic(t.topic)}
-                    className="text-sm text-ink-muted hover:text-ink"
-                    type="button"
+            {/* Topic Input */}
+            <div>
+              <label className="block text-sm font-semibold text-slate-900 mb-3">
+                Add Topics & Rate Yourself
+              </label>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex-1">
+                  <input
+                    value={topicInput}
+                    onChange={(e) => setTopicInput(e.target.value)}
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900 placeholder-slate-500"
+                    placeholder="E.g., Waves, Organic Chemistry, Mensuration..."
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") {
+                        addTopic();
+                      }
+                    }}
+                  />
+                </div>
+                <div className="w-full sm:w-32">
+                  <input
+                    type="number"
+                    min={1}
+                    max={5}
+                    value={ratingInput}
+                    onChange={(e) => setRatingInput(Number(e.target.value) || 1)}
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900"
+                    placeholder="Rating (1-5)"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-3">
+              <button
+                onClick={addTopic}
+                disabled={topics.length >= 12}
+                className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-semibold text-sm"
+              >
+                Add Topic
+              </button>
+              <button
+                onClick={() => {
+                  setTopics([]);
+                  setError(null);
+                }}
+                className="px-6 py-3 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors font-semibold text-sm disabled:opacity-50"
+                disabled={topics.length === 0}
+              >
+                Clear All
+              </button>
+            </div>
+
+            {/* Topics List */}
+            {topics.length > 0 && (
+              <div className="bg-gradient-to-r from-slate-50 to-slate-50/50 rounded-lg p-5 border border-slate-200">
+                <p className="text-sm font-semibold text-slate-900 mb-4">
+                  Topics Added ({topics.length}/12)
+                </p>
+                <ul className="space-y-2">
+                  {topics.map((t) => (
+                    <li
+                      key={t.topic}
+                      className="flex items-center justify-between gap-3 bg-white border border-slate-200 rounded-lg px-4 py-3 hover:border-indigo-300 transition-colors"
+                    >
+                      <div className="flex items-center gap-3 flex-1 min-w-0">
+                        <span className="text-sm text-slate-900 font-medium flex-1 truncate">
+                          {t.topic}
+                        </span>
+                        <span className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${
+                          t.rating <= 2
+                            ? "bg-red-100 text-red-700"
+                            : t.rating === 3
+                            ? "bg-amber-100 text-amber-700"
+                            : "bg-emerald-100 text-emerald-700"
+                        }`}>
+                          {t.rating}/5
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => removeTopic(t.topic)}
+                        className="text-sm text-slate-500 hover:text-slate-700 font-medium transition-colors flex-shrink-0"
+                        type="button"
+                      >
+                        Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Run Button */}
+            <div className="flex gap-3 pt-4 border-t border-slate-200">
+              <button
+                onClick={handleRun}
+                disabled={isLoading || topics.length === 0}
+                className="flex-1 sm:flex-none px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors inline-flex items-center justify-center gap-2 font-semibold text-sm"
+              >
+                {isLoading ? (
+                  <>
+                    <svg
+                      className="w-5 h-5 animate-spin"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-90"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                      />
+                    </svg>
+                    <span>Analyzing...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Generate Study Plan</span>
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth={2.5}
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </>
+                )}
+              </button>
+              <Link
+                href="/"
+                className="px-6 py-3 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors font-semibold text-sm"
+              >
+                Back
+              </Link>
+            </div>
+
+            {error && (
+              <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+                <div className="flex gap-3">
+                  <svg
+                    className="w-5 h-5 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    Remove
-                  </button>
-                </li>
-              ))}
-            </ul>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <span>{error}</span>
+                </div>
+              </div>
+            )}
           </div>
+        </div>
+
+        {/* Results Section */}
+        {result && (
+          <section className="space-y-6">
+            {/* Priority Topic */}
+            <div className="bg-gradient-to-r from-indigo-50 to-indigo-50/50 border border-indigo-200 rounded-xl p-6">
+              <p className="text-xs font-semibold uppercase tracking-widest text-indigo-600 mb-2">
+                Priority Focus
+              </p>
+              <p className="text-2xl font-bold text-indigo-900">{result.priority_topic}</p>
+              <p className="text-sm text-indigo-700 mt-2">
+                This topic needs immediate attention based on your ratings.
+              </p>
+            </div>
+
+            {/* Weak & Strong Areas */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Weak Areas */}
+              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center">
+                    <svg
+                      className="w-5 h-5 text-red-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2.5}
+                        d="M12 9v2m0 4v2m0 0v2m0-6v-2m0-6h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="font-semibold text-slate-900">Weak Areas</h3>
+                </div>
+                <ul className="space-y-2">
+                  {result.weak_areas.map((item) => (
+                    <li key={item} className="flex gap-2 text-sm text-slate-700">
+                      <span className="text-red-600 font-bold flex-shrink-0">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Strong Areas */}
+              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+                    <svg
+                      className="w-5 h-5 text-emerald-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2.5}
+                        d="M9 12l2 2 4-4m7 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="font-semibold text-slate-900">Strong Areas</h3>
+                </div>
+                <ul className="space-y-2">
+                  {result.strong_areas.map((item) => (
+                    <li key={item} className="flex gap-2 text-sm text-slate-700">
+                      <span className="text-emerald-600 font-bold flex-shrink-0">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Study Plan */}
+            <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-indigo-100 flex items-center justify-center">
+                  <svg
+                    className="w-5 h-5 text-indigo-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                    />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-slate-900">Personalized Study Plan</h3>
+              </div>
+              <ol className="space-y-3">
+                {result.study_plan.map((step, idx) => (
+                  <li key={`${step}-${idx}`} className="flex gap-3">
+                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-xs flex-shrink-0">
+                      {idx + 1}
+                    </span>
+                    <span className="text-sm text-slate-700 pt-0.5">{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
         )}
       </div>
-
-      <div className="flex gap-3">
-        <button
-          onClick={handleRun}
-          disabled={isLoading || topics.length === 0}
-          className="px-4 py-2 bg-ink text-paper rounded inline-flex items-center gap-2 disabled:opacity-80"
-        >
-          {isLoading ? "Analyzing... (may take ~10-15s)" : "Run"}
-        </button>
-        <Link href="/" className="px-4 py-2 border rounded">
-          Home
-        </Link>
-      </div>
-
-      {error && (
-        <div className="mt-6 rounded border border-red-300 bg-red-50 p-4 text-sm text-red-700">
-          {error}
-        </div>
-      )}
-
-      {result && (
-        <section className="mt-8 rounded-xl border border-rule bg-white p-6">
-          <div className="flex items-baseline justify-between gap-4 mb-4">
-            <h2 className="font-serif text-2xl font-semibold">Study Diagnostics</h2>
-            <span className="text-sm text-ink-muted">
-              Priority:{" "}
-              <span className="font-semibold text-ink">{result.priority_topic}</span>
-            </span>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div>
-              <h3 className="font-semibold text-sm mb-2">Weak areas</h3>
-              <ul className="list-disc pl-5 text-sm text-ink-soft space-y-1">
-                {result.weak_areas.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-sm mb-2">Strong areas</h3>
-              <ul className="list-disc pl-5 text-sm text-ink-soft space-y-1">
-                {result.strong_areas.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-6 rounded border border-rule bg-rule/5 p-4">
-            <h3 className="font-semibold text-sm mb-2">Suggested study plan</h3>
-            <ol className="list-decimal pl-5 text-sm text-ink-soft space-y-1">
-              {result.study_plan.map((step, idx) => (
-                <li key={`${step}-${idx}`}>{step}</li>
-              ))}
-            </ol>
-          </div>
-        </section>
-      )}
     </main>
   );
 }

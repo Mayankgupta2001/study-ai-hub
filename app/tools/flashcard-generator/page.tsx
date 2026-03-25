@@ -50,78 +50,204 @@ export default function FlashcardGenerator() {
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-6 py-16">
-      <h1 className="font-serif text-3xl font-bold mb-6">Flashcard Generator</h1>
-
-      <label className="block mb-2 text-sm font-medium">Exam type</label>
-      <select
-        value={examType}
-        onChange={(e) => setExamType(e.target.value as "NEET" | "SSC" | "UPSC")}
-        className="w-full p-3 border rounded mb-4"
-      >
-        <option value="NEET">NEET</option>
-        <option value="SSC">SSC</option>
-        <option value="UPSC">UPSC</option>
-      </select>
-
-      <label className="block mb-2 text-sm font-medium">Number of cards (max 10)</label>
-      <input
-        type="number"
-        min={1}
-        max={10}
-        value={numberOfCards}
-        onChange={(e) => setNumberOfCards(Number(e.target.value) || 1)}
-        className="w-full p-3 border rounded mb-4"
-      />
-
-      <label className="block mb-2 text-sm font-medium">Topic</label>
-      <textarea
-        value={topic}
-        onChange={(e) => setTopic(e.target.value)}
-        rows={6}
-        className="w-full p-3 border rounded mb-4"
-        placeholder="E.g., Photosynthesis (NEET) or Polity (UPSC) or Quant chapter basics (SSC)"
-      />
-
-      <div className="flex gap-3">
-        <button
-          onClick={handleGenerate}
-          disabled={isLoading}
-          className="px-4 py-2 bg-ink text-paper rounded inline-flex items-center gap-2 disabled:opacity-80"
-        >
-          {isLoading ? "Generating... (may take ~10-15s)" : "Generate"}
-        </button>
-        <Link href="/" className="px-4 py-2 border rounded">
-          Home
-        </Link>
-      </div>
-
-      {error && (
-        <div className="mt-6 rounded border border-red-300 bg-red-50 p-4 text-sm text-red-700">
-          {error}
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-white">
+      <div className="max-w-4xl mx-auto px-6 py-16">
+        {/* Header */}
+        <div className="mb-8">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 font-medium text-sm mb-4"
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2.5}
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Home
+          </Link>
+          <h1 className="font-dm-sans text-4xl font-bold text-slate-900 mb-2">
+            Flashcard Generator
+          </h1>
+          <p className="text-slate-600 text-base leading-relaxed">
+            Generate custom flashcards for your exam topics in seconds. Perfect for concept review
+            and memorization.
+          </p>
         </div>
-      )}
 
-      {result && (
-        <section className="mt-8 rounded-xl border border-rule bg-white p-6">
-          <h2 className="font-serif text-2xl font-semibold mb-3">Flashcards</h2>
-          <p className="text-sm text-ink-soft mb-5">{result.topic_summary}</p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {result.flashcards.map((card, idx) => (
-              <div
-                key={`${card.front}-${idx}`}
-                className="rounded border border-rule bg-rule/5 p-4"
+        {/* Input Card */}
+        <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm mb-8">
+          <div className="space-y-6">
+            {/* Exam Type */}
+            <div>
+              <label className="block text-sm font-semibold text-slate-900 mb-3">
+                Exam Type
+              </label>
+              <select
+                value={examType}
+                onChange={(e) => setExamType(e.target.value as "NEET" | "SSC" | "UPSC")}
+                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900 bg-white"
               >
-                <div className="text-sm font-semibold text-ink mb-2">Front</div>
-                <p className="text-sm text-ink-soft mb-3">{card.front}</p>
-                <div className="text-sm font-semibold text-ink mb-2">Back</div>
-                <p className="text-sm text-ink-soft">{card.back}</p>
+                <option value="NEET">NEET</option>
+                <option value="SSC">SSC</option>
+                <option value="UPSC">UPSC</option>
+              </select>
+            </div>
+
+            {/* Number of Cards */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-semibold text-slate-900 mb-3">
+                  Number of cards <span className="text-slate-400 font-normal">(max 10)</span>
+                </label>
+                <input
+                  type="number"
+                  min={1}
+                  max={10}
+                  value={numberOfCards}
+                  onChange={(e) => setNumberOfCards(Number(e.target.value) || 1)}
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900"
+                />
               </div>
-            ))}
+            </div>
+
+            {/* Topic */}
+            <div>
+              <label className="block text-sm font-semibold text-slate-900 mb-3">
+                Topic
+              </label>
+              <textarea
+                value={topic}
+                onChange={(e) => setTopic(e.target.value)}
+                rows={6}
+                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none text-slate-900 placeholder-slate-500"
+                placeholder="E.g., Photosynthesis (NEET) or Polity (UPSC) or Quant chapter basics (SSC)"
+              />
+            </div>
           </div>
-        </section>
-      )}
+
+          {/* Action Buttons */}
+          <div className="flex gap-3 mt-8">
+            <button
+              onClick={handleGenerate}
+              disabled={isLoading}
+              className="flex-1 sm:flex-none px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150 inline-flex items-center justify-center gap-2 font-semibold text-sm"
+            >
+              {isLoading ? (
+                <>
+                  <svg
+                    className="w-5 h-5 animate-spin"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-90"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    />
+                  </svg>
+                  <span>Generating...</span>
+                </>
+              ) : (
+                <>
+                  <span>Generate Cards</span>
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </>
+              )}
+            </button>
+            <Link
+              href="/"
+              className="px-6 py-3 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors font-semibold text-sm"
+            >
+              Back
+            </Link>
+          </div>
+
+          {error && (
+            <div className="mt-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+              <div className="flex gap-3">
+                <svg
+                  className="w-5 h-5 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span>{error}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Results Section */}
+        {result && (
+          <section className="space-y-6">
+            {/* Summary Card */}
+            <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+              <h2 className="font-dm-sans text-2xl font-bold text-slate-900 mb-3">
+                Topic Summary
+              </h2>
+              <p className="text-slate-700 text-base leading-relaxed">
+                {result.topic_summary}
+              </p>
+            </div>
+
+            {/* Flashcards Grid */}
+            <div>
+              <h3 className="font-dm-sans text-xl font-bold text-slate-900 mb-5">
+                Generated Flashcards ({result.flashcards.length})
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {result.flashcards.map((card, idx) => (
+                  <div
+                    key={`${card.front}-${idx}`}
+                    className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow hover:border-indigo-300"
+                  >
+                    <div className="mb-4">
+                      <p className="text-xs font-semibold text-indigo-600 uppercase tracking-widest mb-2">
+                        Front
+                      </p>
+                      <p className="text-sm font-medium text-slate-900">{card.front}</p>
+                    </div>
+                    <div className="border-t border-slate-200 pt-4">
+                      <p className="text-xs font-semibold text-emerald-600 uppercase tracking-widest mb-2">
+                        Back
+                      </p>
+                      <p className="text-sm text-slate-700 leading-relaxed">{card.back}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+      </div>
     </main>
   );
 }

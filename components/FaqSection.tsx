@@ -12,17 +12,17 @@ interface FaqItemProps {
 
 function FaqItem({ question, answer, isOpen, onToggle }: FaqItemProps) {
   return (
-    <div className="border-b border-rule last:border-b-0">
+    <div className="border-b border-slate-200 last:border-b-0">
       <button
-        className="w-full flex items-start justify-between gap-6 py-5 text-left group"
+        className="w-full flex items-start justify-between gap-6 py-6 text-left group"
         onClick={onToggle}
         aria-expanded={isOpen}
       >
-        <span className="font-serif text-base sm:text-lg text-ink group-hover:text-accent transition-colors duration-150 leading-snug">
+        <span className="font-dm-sans text-lg text-slate-900 group-hover:text-indigo-600 transition-colors duration-150 leading-snug font-semibold">
           {question}
         </span>
         <span
-          className={`shrink-0 w-5 h-5 flex items-center justify-center text-ink-muted transition-transform duration-200 mt-0.5 ${
+          className={`shrink-0 w-6 h-6 flex items-center justify-center text-indigo-600 transition-transform duration-300 mt-0.5 ${
             isOpen ? "rotate-45" : ""
           }`}
           aria-hidden="true"
@@ -30,9 +30,9 @@ function FaqItem({ question, answer, isOpen, onToggle }: FaqItemProps) {
           <svg
             fill="none"
             stroke="currentColor"
-            strokeWidth={1.75}
+            strokeWidth={2.5}
             viewBox="0 0 24 24"
-            className="w-4 h-4"
+            className="w-5 h-5"
           >
             <path
               strokeLinecap="round"
@@ -44,7 +44,7 @@ function FaqItem({ question, answer, isOpen, onToggle }: FaqItemProps) {
       </button>
 
       {isOpen && (
-        <p className="pb-5 text-sm text-ink-soft leading-relaxed max-w-[64ch]">
+        <p className="pb-6 text-base text-slate-600 leading-relaxed max-w-[66ch] font-dm-sans">
           {answer}
         </p>
       )}
@@ -62,26 +62,26 @@ export default function FaqSection() {
   return (
     <section
       id="faq"
-      className="border-t border-rule"
+      className="border-t border-slate-200"
       aria-labelledby="faq-heading"
     >
-      <div className="max-w-6xl mx-auto px-6 py-16 sm:py-20">
+      <div className="max-w-6xl mx-auto px-6 py-20 sm:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-12 lg:gap-20">
           {/* Left label */}
           <header>
-            <span className="block text-[11px] font-medium uppercase tracking-widest text-ink-muted mb-3">
+            <span className="block text-xs font-semibold uppercase tracking-widest text-slate-600 mb-3">
               FAQ
             </span>
             <h2
               id="faq-heading"
-              className="font-serif text-3xl sm:text-4xl font-bold text-ink tracking-tight"
+              className="font-dm-sans text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight"
             >
               Common questions
             </h2>
           </header>
 
           {/* Right accordion */}
-          <div className="border-t border-rule">
+          <div className="border-t border-slate-200">
             {FAQ_ITEMS.map((item, idx) => (
               <FaqItem
                 key={item.question}
