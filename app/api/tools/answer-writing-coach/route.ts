@@ -69,8 +69,33 @@ export async function POST(request: Request) {
       result.choices?.[0]?.message?.content ||
       result.choices?.[0]?.message?.reasoning ||
       "";
+
+    console.log("AnswerWritingCoach raw model text:", text);
+
+    function extractJsonObject(raw: string): string | null {
+      // 1) Remove markdown code fences first (e.g. ```json ... ```).
+      const withoutFences = raw.replace(
+        /```(?:json)?\s*([\s\S]*?)\s*```/gi,
+        "$1",
+      );
+
+      // 2) Trim to the first {...} object region.
+      const firstBrace = withoutFences.indexOf("{");
+      const lastBrace = withoutFences.lastIndexOf("}");
+      if (firstBrace === -1 || lastBrace === -1 || lastBrace < firstBrace) {
+        return null;
+      }
+
+      return withoutFences.slice(firstBrace, lastBrace + 1).trim();
+    }
+
     const rawText = text.trim();
-    const parsed = parseEvaluationJson(rawText);
+    const extractedJson = extractJsonObject(rawText);
+    if (extractedJson) {
+      console.log("AnswerWritingCoach extracted JSON:", extractedJson);
+    }
+
+    const parsed = parseEvaluationJson(extractedJson ?? rawText);
 
     if (!parsed.ok) {
       return NextResponse.json(
