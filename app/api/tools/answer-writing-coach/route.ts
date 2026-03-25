@@ -5,10 +5,10 @@ import {
   validateAnswerCoachRequest,
 } from "@/lib/validators/answerCoach";
 
-const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
-const modelName = "nvidia/nemotron-3-super-120b-a12b:free";
+const GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
+const modelName = "llama-3.3-70b-versatile";
 
-type OpenRouterCompletionResult = {
+type GroqChatCompletionResult = {
   error?: { message?: string };
   choices?: Array<{
     message?: { content?: string; reasoning?: string };
@@ -17,9 +17,9 @@ type OpenRouterCompletionResult = {
 
 export async function POST(request: Request) {
   try {
-    if (!process.env.OPENROUTER_API_KEY) {
+    if (!process.env.GROQ_API_KEY) {
       return NextResponse.json(
-        { error: "Missing OPENROUTER_API_KEY on server." },
+        { error: "Missing GROQ_API_KEY on server." },
         { status: 500 },
       );
     }
@@ -31,17 +31,16 @@ export async function POST(request: Request) {
     }
 
     const prompt = buildUpscExaminerPrompt(validated.data);
-    const completionResponse = await fetch(OPENROUTER_ENDPOINT, {
+    const completionResponse = await fetch(GROQ_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
       },
       body: JSON.stringify({
         model: modelName,
         temperature: 0.2,
         max_tokens: 900,
-        response_format: { type: "json_object" },
         messages: [
           { role: "system", content: prompt.system },
           { role: "user", content: prompt.user },
@@ -49,11 +48,11 @@ export async function POST(request: Request) {
       }),
     });
 
-    const result = (await completionResponse.json()) as OpenRouterCompletionResult;
+    const result = (await completionResponse.json()) as GroqChatCompletionResult;
 
     if (!completionResponse.ok) {
       const apiErrorMessage =
-        result?.error?.message ?? "OpenRouter request failed.";
+        result?.error?.message ?? "Groq request failed.";
       return NextResponse.json(
         {
           error: "Failed to evaluate answer.",
@@ -94,8 +93,6 @@ export async function POST(request: Request) {
     if (extractedJson) {
       console.log("AnswerWritingCoach extracted JSON:", extractedJson);
     }
-
-    return NextResponse.json({ debug: true, rawResponse: rawText });
 
     const parsed = parseEvaluationJson(extractedJson ?? rawText);
 
