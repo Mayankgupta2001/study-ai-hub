@@ -17,7 +17,7 @@ export default function Hero() {
       <h1 className="font-dm-sans text-5xl sm:text-6xl lg:text-7xl font-bold text-slate-900 leading-tight tracking-tight mb-6">
         Prepare with tools
         <br />
-        <span className="bg-gradient-to-r from-indigo-600 to-indigo-500 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
           built for your exam
         </span>
       </h1>

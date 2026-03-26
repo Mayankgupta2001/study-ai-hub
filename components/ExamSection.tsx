@@ -35,7 +35,7 @@ export default function ExamSection() {
             <Link
               key={exam.key}
               href={exam.href}
-              className="group block bg-white rounded-2xl p-8 shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-gray-100"
+              className="group block bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               aria-label={`${exam.name} — ${exam.fullName}`}
             >
               {/* Header with icon and accent */}

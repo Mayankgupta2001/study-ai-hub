@@ -9,7 +9,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
   return (
     <Link
       href={tool.href}
-      className="group flex flex-col bg-white rounded-2xl p-6 shadow-md hover:shadow-lg hover:border-indigo-300 hover:-translate-y-1 active:translate-y-0 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 border border-gray-100"
+      className="group flex flex-col bg-white rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-indigo-500 border-2 border-transparent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
       aria-label={`${tool.title} — ${tool.badge} tool for ${tool.exam}`}
     >
       {/* Icon */}
