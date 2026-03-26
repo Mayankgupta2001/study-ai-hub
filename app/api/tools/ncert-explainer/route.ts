@@ -14,11 +14,16 @@ type GroqChatCompletionResult = {
 };
 
 function extractJsonObject(raw: string): string | null {
-  const withoutFences = raw.replace(/```(?:json)?\s*([\s\S]*?)\s*```/gi, "$1");
-  const firstBrace = withoutFences.indexOf("{");
-  const lastBrace = withoutFences.lastIndexOf("}");
+  let cleaned = raw;
+  // strip fenced code blocks explicitly
+  cleaned = cleaned.replace(/```\s*json\s*/gi, "");
+  cleaned = cleaned.replace(/```/g, "");
+  // strip any surrounding text before/after JSON object boundaries
+  const firstBrace = cleaned.indexOf("{");
+  const lastBrace = cleaned.lastIndexOf("}");
   if (firstBrace === -1 || lastBrace === -1 || lastBrace < firstBrace) return null;
-  return withoutFences.slice(firstBrace, lastBrace + 1).trim();
+  const jsonFragment = cleaned.slice(firstBrace, lastBrace + 1).trim();
+  return jsonFragment;
 }
 
 export async function POST(request: Request) {

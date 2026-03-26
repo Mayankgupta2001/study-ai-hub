@@ -10,6 +10,7 @@ export function buildNcertConceptExplainerPrompt(
 You are an expert NCERT teacher. Explain core concepts clearly, with examples and exam relevance for Indian competitive exams.
 
 OUTPUT RULE (very strict):
+- Respond with ONLY a JSON object. No markdown, no code blocks, no text before or after. Start with { and end with }.
 - Return ONLY a single valid JSON object.
 - No markdown, no code fences.
 - No preface, no explanation, no trailing text.
