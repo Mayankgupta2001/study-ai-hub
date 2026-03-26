@@ -12,7 +12,7 @@ interface FaqItemProps {
 
 function FaqItem({ question, answer, isOpen, onToggle }: FaqItemProps) {
   return (
-    <div className="border-b border-slate-200 last:border-b-0">
+    <div className="border-b border-gray-200 last:border-b-0">
       <button
         className="w-full flex items-start justify-between gap-6 py-6 text-left group"
         onClick={onToggle}
@@ -44,7 +44,7 @@ function FaqItem({ question, answer, isOpen, onToggle }: FaqItemProps) {
       </button>
 
       {isOpen && (
-        <p className="pb-6 text-base text-slate-600 leading-relaxed max-w-[66ch] font-dm-sans">
+        <p className="pb-6 text-base text-slate-600 leading-relaxed max-w-3xl font-dm-sans">
           {answer}
         </p>
       )}
@@ -62,14 +62,15 @@ export default function FaqSection() {
   return (
     <section
       id="faq"
-      className="border-t border-slate-200"
+      className="py-16 sm:py-20"
       aria-labelledby="faq-heading"
     >
-      <div className="max-w-6xl mx-auto px-6 py-20 sm:py-24">
+      <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-12 lg:gap-20">
           {/* Left label */}
           <header>
-            <span className="block text-xs font-semibold uppercase tracking-widest text-slate-600 mb-3">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-emerald-600 mb-4">
+              <span className="block w-5 h-px bg-emerald-600" aria-hidden="true" />
               FAQ
             </span>
             <h2
@@ -81,7 +82,7 @@ export default function FaqSection() {
           </header>
 
           {/* Right accordion */}
-          <div className="border-t border-slate-200">
+          <div className="border-t border-gray-200">
             {FAQ_ITEMS.map((item, idx) => (
               <FaqItem
                 key={item.question}

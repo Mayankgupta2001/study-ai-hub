@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -32,9 +34,12 @@ export default function LoginPage() {
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 700));
     setIsLoading(false);
-    setMessage("Login successful (mock). You can integrate backend auth later.");
-  };
+    setMessage("Login successful! Redirecting...");
 
+    setTimeout(() => {
+      router.push("/");
+    }, 1000);
+  };
   const handleGoogle = async () => {
     setError(null);
     setMessage(null);

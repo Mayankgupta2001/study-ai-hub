@@ -9,12 +9,12 @@ export default function ToolCard({ tool }: ToolCardProps) {
   return (
     <Link
       href={tool.href}
-      className="group flex flex-col bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg hover:border-indigo-300 hover:-translate-y-1 active:translate-y-0 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
+      className="group flex flex-col bg-white rounded-2xl p-6 shadow-md hover:shadow-lg hover:border-indigo-300 hover:-translate-y-1 active:translate-y-0 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 border border-gray-100"
       aria-label={`${tool.title} — ${tool.badge} tool for ${tool.exam}`}
     >
       {/* Icon */}
       <div
-        className="w-12 h-12 rounded-lg bg-indigo-100 flex items-center justify-center text-2xl mb-5 shrink-0 group-hover:bg-indigo-200 transition-colors duration-200"
+        className="w-12 h-12 rounded-xl bg-indigo-50 flex items-center justify-center text-2xl mb-5 shrink-0 group-hover:bg-indigo-100 transition-colors duration-200"
         aria-hidden="true"
       >
         {tool.icon}
@@ -32,12 +32,12 @@ export default function ToolCard({ tool }: ToolCardProps) {
 
       {/* Footer row */}
       <div className="flex items-center justify-between gap-2 mt-auto">
-        <span className="text-xs text-slate-500 font-medium tracking-wide">
+        <span className="text-xs text-slate-500 font-medium">
           {tool.exam}
         </span>
 
         <span
-          className={`text-xs font-semibold tracking-widest uppercase px-3 py-1.5 rounded-md ${
+          className={`text-xs font-semibold px-3 py-1.5 rounded-lg ${
             tool.badge === "Free"
               ? "bg-emerald-100 text-emerald-700"
               : "bg-indigo-100 text-indigo-700"

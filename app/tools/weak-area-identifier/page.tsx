@@ -101,8 +101,8 @@ export default function WeakAreaIdentifier() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-white">
-      <div className="max-w-4xl mx-auto px-6 py-16">
+    <main className="min-h-screen bg-gray-50 py-16">
+      <div className="max-w-2xl mx-auto px-6">
         {/* Header */}
         <div className="mb-8">
           <Link
@@ -120,7 +120,7 @@ export default function WeakAreaIdentifier() {
             </svg>
             Back to Home
           </Link>
-          <h1 className="font-dm-sans text-4xl font-bold text-slate-900 mb-2">
+          <h1 className="font-dm-sans text-3xl font-bold text-slate-900 mb-2">
             Weak Area Identifier
           </h1>
           <p className="text-slate-600 text-base leading-relaxed">
@@ -130,7 +130,7 @@ export default function WeakAreaIdentifier() {
         </div>
 
         {/* Input Card */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm mb-8">
+        <div className="bg-white rounded-2xl p-8 shadow-md mb-8">
           <div className="space-y-6">
             {/* Exam Type */}
             <div>
@@ -140,7 +140,7 @@ export default function WeakAreaIdentifier() {
               <select
                 value={examType}
                 onChange={(e) => setExamType(e.target.value as "UPSC" | "JEE" | "NEET" | "SSC")}
-                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900 bg-white"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900 bg-white"
               >
                 <option value="UPSC">UPSC</option>
                 <option value="JEE">JEE</option>
@@ -159,7 +159,7 @@ export default function WeakAreaIdentifier() {
                   <input
                     value={topicInput}
                     onChange={(e) => setTopicInput(e.target.value)}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900 placeholder-slate-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900 placeholder-slate-500"
                     placeholder="E.g., Waves, Organic Chemistry, Mensuration..."
                     onKeyPress={(e) => {
                       if (e.key === "Enter") {
@@ -175,7 +175,7 @@ export default function WeakAreaIdentifier() {
                     max={5}
                     value={ratingInput}
                     onChange={(e) => setRatingInput(Number(e.target.value) || 1)}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900"
                     placeholder="Rating (1-5)"
                   />
                 </div>
@@ -187,7 +187,7 @@ export default function WeakAreaIdentifier() {
               <button
                 onClick={addTopic}
                 disabled={topics.length >= 12}
-                className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-semibold text-sm"
+                className="px-6 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-semibold text-sm"
               >
                 Add Topic
               </button>
@@ -196,7 +196,7 @@ export default function WeakAreaIdentifier() {
                   setTopics([]);
                   setError(null);
                 }}
-                className="px-6 py-3 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors font-semibold text-sm disabled:opacity-50"
+                className="px-6 py-3 border border-gray-300 text-slate-700 rounded-xl hover:bg-gray-50 transition-colors font-semibold text-sm disabled:opacity-50"
                 disabled={topics.length === 0}
               >
                 Clear All
@@ -205,7 +205,7 @@ export default function WeakAreaIdentifier() {
 
             {/* Topics List */}
             {topics.length > 0 && (
-              <div className="bg-gradient-to-r from-slate-50 to-slate-50/50 rounded-lg p-5 border border-slate-200">
+              <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
                 <p className="text-sm font-semibold text-slate-900 mb-4">
                   Topics Added ({topics.length}/12)
                 </p>
@@ -213,13 +213,13 @@ export default function WeakAreaIdentifier() {
                   {topics.map((t) => (
                     <li
                       key={t.topic}
-                      className="flex items-center justify-between gap-3 bg-white border border-slate-200 rounded-lg px-4 py-3 hover:border-indigo-300 transition-colors"
+                      className="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-xl px-4 py-3 hover:border-indigo-300 transition-colors"
                     >
                       <div className="flex items-center gap-3 flex-1 min-w-0">
                         <span className="text-sm text-slate-900 font-medium flex-1 truncate">
                           {t.topic}
                         </span>
-                        <span className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${
+                        <span className={`px-3 py-1 rounded-lg text-xs font-semibold whitespace-nowrap ${
                           t.rating <= 2
                             ? "bg-red-100 text-red-700"
                             : t.rating === 3
@@ -243,61 +243,42 @@ export default function WeakAreaIdentifier() {
             )}
 
             {/* Run Button */}
-            <div className="flex gap-3 pt-4 border-t border-slate-200">
-              <button
-                onClick={handleRun}
-                disabled={isLoading || topics.length === 0}
-                className="flex-1 sm:flex-none px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors inline-flex items-center justify-center gap-2 font-semibold text-sm"
-              >
-                {isLoading ? (
-                  <>
-                    <svg
-                      className="w-5 h-5 animate-spin"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      />
-                      <path
-                        className="opacity-90"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                      />
-                    </svg>
-                    <span>Analyzing...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Generate Study Plan</span>
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
+            <button
+              onClick={handleRun}
+              disabled={isLoading || topics.length === 0}
+              className="w-full mt-6 px-6 py-4 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white rounded-xl hover:from-indigo-700 hover:to-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-150 inline-flex items-center justify-center gap-2 font-semibold text-base shadow-md hover:shadow-lg"
+            >
+              {isLoading ? (
+                <>
+                  <svg
+                    className="w-5 h-5 animate-spin"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
                       stroke="currentColor"
-                      strokeWidth={2.5}
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                  </>
-                )}
-              </button>
-              <Link
-                href="/"
-                className="px-6 py-3 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors font-semibold text-sm"
-              >
-                Back
-              </Link>
-            </div>
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-90"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    />
+                  </svg>
+                  <span>Analyzing...</span>
+                </>
+              ) : (
+                <span>Generate Study Plan</span>
+              )}
+            </button>
 
             {error && (
-              <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+              <div className="mt-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
                 <div className="flex gap-3">
                   <svg
                     className="w-5 h-5 flex-shrink-0"
@@ -323,83 +304,95 @@ export default function WeakAreaIdentifier() {
         {result && (
           <section className="space-y-6">
             {/* Priority Topic */}
-            <div className="bg-gradient-to-r from-indigo-50 to-indigo-50/50 border border-indigo-200 rounded-xl p-6">
-              <p className="text-xs font-semibold uppercase tracking-widest text-indigo-600 mb-2">
-                Priority Focus
-              </p>
-              <p className="text-2xl font-bold text-indigo-900">{result.priority_topic}</p>
-              <p className="text-sm text-indigo-700 mt-2">
+            <div className="bg-white rounded-2xl p-6 shadow-md border-l-4 border-indigo-500">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-xl bg-indigo-100 flex items-center justify-center">
+                  <svg
+                    className="w-5 h-5 text-indigo-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M12 9v2m0 4v2m0 0v2m0-6v-2m0-6h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-slate-900">Priority Focus</h3>
+              </div>
+              <p className="text-xl font-bold text-indigo-900 mb-2">{result.priority_topic}</p>
+              <p className="text-sm text-slate-600">
                 This topic needs immediate attention based on your ratings.
               </p>
             </div>
 
-            {/* Weak & Strong Areas */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Weak Areas */}
-              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center">
-                    <svg
-                      className="w-5 h-5 text-red-600"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2.5}
-                        d="M12 9v2m0 4v2m0 0v2m0-6v-2m0-6h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-slate-900">Weak Areas</h3>
+            {/* Weak Areas */}
+            <div className="bg-white rounded-2xl p-6 shadow-md border-l-4 border-red-500">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-xl bg-red-100 flex items-center justify-center">
+                  <svg
+                    className="w-5 h-5 text-red-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
                 </div>
-                <ul className="space-y-2">
-                  {result.weak_areas.map((item) => (
-                    <li key={item} className="flex gap-2 text-sm text-slate-700">
-                      <span className="text-red-600 font-bold flex-shrink-0">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                <h3 className="font-semibold text-slate-900">Weak Areas</h3>
               </div>
+              <ul className="space-y-2">
+                {result.weak_areas.map((item) => (
+                  <li key={item} className="flex gap-2 text-sm text-slate-700">
+                    <span className="text-red-600 font-bold flex-shrink-0">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-              {/* Strong Areas */}
-              <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
-                    <svg
-                      className="w-5 h-5 text-emerald-600"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2.5}
-                        d="M9 12l2 2 4-4m7 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-slate-900">Strong Areas</h3>
+            {/* Strong Areas */}
+            <div className="bg-white rounded-2xl p-6 shadow-md border-l-4 border-emerald-500">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center">
+                  <svg
+                    className="w-5 h-5 text-emerald-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M9 12l2 2 4-4m7 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
                 </div>
-                <ul className="space-y-2">
-                  {result.strong_areas.map((item) => (
-                    <li key={item} className="flex gap-2 text-sm text-slate-700">
-                      <span className="text-emerald-600 font-bold flex-shrink-0">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                <h3 className="font-semibold text-slate-900">Strong Areas</h3>
               </div>
+              <ul className="space-y-2">
+                {result.strong_areas.map((item) => (
+                  <li key={item} className="flex gap-2 text-sm text-slate-700">
+                    <span className="text-emerald-600 font-bold flex-shrink-0">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
 
             {/* Study Plan */}
-            <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-indigo-100 flex items-center justify-center">
+            <div className="bg-white rounded-2xl p-6 shadow-md border-l-4 border-indigo-500">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-xl bg-indigo-100 flex items-center justify-center">
                   <svg
                     className="w-5 h-5 text-indigo-600"
                     fill="none"

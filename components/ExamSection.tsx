@@ -1,99 +1,89 @@
 import Link from "next/link";
 import { EXAMS } from "@/lib/data";
 
+const examIcons = {
+  upsc: "📚",
+  jee: "🧮",
+  neet: "🩺",
+  ssc: "📋"
+};
+
 export default function ExamSection() {
   return (
     <section
       id="exams"
-      className="border-t border-rule"
+      className="bg-gray-50 py-16 sm:py-20"
       aria-labelledby="exams-heading"
     >
-      <div className="max-w-6xl mx-auto px-6 py-16 sm:py-20">
+      <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
-        <header className="mb-12">
-          <span className="block text-[11px] font-medium uppercase tracking-widest text-ink-muted mb-3">
-            Browse by exam
-          </span>
+        <header className="text-center mb-12">
           <h2
             id="exams-heading"
-            className="font-serif text-3xl sm:text-4xl font-bold text-ink tracking-tight mb-3"
+            className="font-dm-sans text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight mb-4"
           >
             Which exam are you preparing for?
           </h2>
-          <p className="text-ink-soft text-sm sm:text-base leading-relaxed max-w-[52ch]">
-            Every tool, practice set, and explanation is scoped to the official
-            syllabus and paper pattern of the selected exam.
+          <p className="text-slate-500 text-lg leading-relaxed max-w-2xl mx-auto">
+            Every tool, practice set, and explanation is scoped to the official syllabus and paper pattern of the selected exam.
           </p>
         </header>
 
         {/* Exam grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {EXAMS.map((exam) => (
             <Link
               key={exam.key}
               href={exam.href}
-              className={`group flex flex-col bg-white border border-rule border-t-4 ${exam.accentBorder} rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 active:translate-y-0 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent`}
+              className="group block bg-white rounded-2xl p-8 shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-gray-100"
               aria-label={`${exam.name} — ${exam.fullName}`}
             >
-              {/* Exam identifier */}
-              <div className="mb-4">
-                <p
-                  className={`font-serif text-3xl font-bold leading-none mb-1 ${exam.accentText}`}
-                >
-                  {exam.name}
-                </p>
-                <p className="text-xs text-ink-muted leading-snug">
-                  {exam.fullName}
-                </p>
+              {/* Header with icon and accent */}
+              <div className="flex items-center gap-4 mb-4">
+                <div className="text-3xl">{examIcons[exam.key]}</div>
+                <div className={`w-1 h-12 rounded-full ${
+                  exam.key === 'upsc' ? 'bg-violet-500' :
+                  exam.key === 'jee' ? 'bg-sky-500' :
+                  exam.key === 'neet' ? 'bg-emerald-500' : 'bg-amber-500'
+                }`} />
+                <div>
+                  <h3 className="font-dm-sans text-xl font-bold text-slate-900">
+                    {exam.name}
+                  </h3>
+                  <p className="text-sm text-slate-500">
+                    {exam.fullName}
+                  </p>
+                </div>
               </div>
 
-              {/* Short description */}
-              <p className="text-sm text-ink-soft leading-relaxed mb-5 flex-1">
+              {/* Description */}
+              <p className="text-slate-600 leading-relaxed mb-6">
                 {exam.description}
               </p>
 
-              {/* Tool list */}
-              <ul
-                className="flex flex-col gap-1.5 mb-6 list-none m-0 p-0"
-                role="list"
-                aria-label={`Tools for ${exam.name}`}
-              >
-                {exam.tools.map((tool) => (
-                  <li
-                    key={tool}
-                    className="flex items-start gap-2 text-sm text-ink-soft"
+              {/* Tool count and link */}
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-slate-500">
+                  {exam.tools.length} tools available
+                </span>
+                <span className="text-sm font-semibold text-indigo-600 group-hover:text-indigo-700 flex items-center gap-2 transition-colors">
+                  View tools
+                  <svg
+                    className="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
-                    <span
-                      className="text-ink-muted text-xs mt-0.5 shrink-0 select-none"
-                      aria-hidden="true"
-                    >
-                      →
-                    </span>
-                    {tool}
-                  </li>
-                ))}
-              </ul>
-
-              {/* Footer link */}
-              <span
-                className={`text-sm font-medium flex items-center gap-1.5 transition-colors ${exam.accentLink}`}
-              >
-                Open {exam.name} tools
-                <svg
-                  className="w-3.5 h-3.5 translate-x-0 group-hover:translate-x-0.5 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </span>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </span>
+              </div>
             </Link>
           ))}
         </div>

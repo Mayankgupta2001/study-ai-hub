@@ -50,8 +50,8 @@ export default function FlashcardGenerator() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-white">
-      <div className="max-w-4xl mx-auto px-6 py-16">
+    <main className="min-h-screen bg-gray-50 py-16">
+      <div className="max-w-2xl mx-auto px-6">
         {/* Header */}
         <div className="mb-8">
           <Link
@@ -69,7 +69,7 @@ export default function FlashcardGenerator() {
             </svg>
             Back to Home
           </Link>
-          <h1 className="font-dm-sans text-4xl font-bold text-slate-900 mb-2">
+          <h1 className="font-dm-sans text-3xl font-bold text-slate-900 mb-2">
             Flashcard Generator
           </h1>
           <p className="text-slate-600 text-base leading-relaxed">
@@ -79,7 +79,7 @@ export default function FlashcardGenerator() {
         </div>
 
         {/* Input Card */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm mb-8">
+        <div className="bg-white rounded-2xl p-8 shadow-md mb-8">
           <div className="space-y-6">
             {/* Exam Type */}
             <div>
@@ -89,7 +89,7 @@ export default function FlashcardGenerator() {
               <select
                 value={examType}
                 onChange={(e) => setExamType(e.target.value as "NEET" | "SSC" | "UPSC")}
-                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900 bg-white"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900 bg-white"
               >
                 <option value="NEET">NEET</option>
                 <option value="SSC">SSC</option>
@@ -98,20 +98,18 @@ export default function FlashcardGenerator() {
             </div>
 
             {/* Number of Cards */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-semibold text-slate-900 mb-3">
-                  Number of cards <span className="text-slate-400 font-normal">(max 10)</span>
-                </label>
-                <input
-                  type="number"
-                  min={1}
-                  max={10}
-                  value={numberOfCards}
-                  onChange={(e) => setNumberOfCards(Number(e.target.value) || 1)}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900"
-                />
-              </div>
+            <div>
+              <label className="block text-sm font-semibold text-slate-900 mb-3">
+                Number of cards <span className="text-slate-400 font-normal">(max 10)</span>
+              </label>
+              <input
+                type="number"
+                min={1}
+                max={10}
+                value={numberOfCards}
+                onChange={(e) => setNumberOfCards(Number(e.target.value) || 1)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900"
+              />
             </div>
 
             {/* Topic */}
@@ -123,68 +121,49 @@ export default function FlashcardGenerator() {
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 rows={6}
-                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none text-slate-900 placeholder-slate-500"
                 placeholder="E.g., Photosynthesis (NEET) or Polity (UPSC) or Quant chapter basics (SSC)"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none text-slate-900 placeholder-slate-500"
               />
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex gap-3 mt-8">
-            <button
-              onClick={handleGenerate}
-              disabled={isLoading}
-              className="flex-1 sm:flex-none px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150 inline-flex items-center justify-center gap-2 font-semibold text-sm"
-            >
-              {isLoading ? (
-                <>
-                  <svg
-                    className="w-5 h-5 animate-spin"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    />
-                    <path
-                      className="opacity-90"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                    />
-                  </svg>
-                  <span>Generating...</span>
-                </>
-              ) : (
-                <>
-                  <span>Generate Cards</span>
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
+          {/* Submit Button */}
+          <button
+            onClick={handleGenerate}
+            disabled={isLoading || !topic.trim()}
+            className="w-full mt-8 px-6 py-4 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white rounded-xl hover:from-indigo-700 hover:to-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-150 inline-flex items-center justify-center gap-2 font-semibold text-base shadow-md hover:shadow-lg"
+          >
+            {isLoading ? (
+              <>
+                <svg
+                  className="w-5 h-5 animate-spin"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
                     stroke="currentColor"
-                    strokeWidth={2.5}
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </>
-              )}
-            </button>
-            <Link
-              href="/"
-              className="px-6 py-3 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors font-semibold text-sm"
-            >
-              Back
-            </Link>
-          </div>
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-90"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  />
+                </svg>
+                <span>Analyzing...</span>
+              </>
+            ) : (
+              <span>Generate Flashcards</span>
+            )}
+          </button>
 
           {error && (
-            <div className="mt-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+            <div className="mt-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
               <div className="flex gap-3">
                 <svg
                   className="w-5 h-5 flex-shrink-0"
@@ -209,10 +188,25 @@ export default function FlashcardGenerator() {
         {result && (
           <section className="space-y-6">
             {/* Summary Card */}
-            <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
-              <h2 className="font-dm-sans text-2xl font-bold text-slate-900 mb-3">
-                Topic Summary
-              </h2>
+            <div className="bg-white rounded-2xl p-6 shadow-md border-l-4 border-indigo-500">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-xl bg-indigo-100 flex items-center justify-center">
+                  <svg
+                    className="w-5 h-5 text-indigo-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-slate-900">Topic Summary</h3>
+              </div>
               <p className="text-slate-700 text-base leading-relaxed">
                 {result.topic_summary}
               </p>
@@ -223,11 +217,11 @@ export default function FlashcardGenerator() {
               <h3 className="font-dm-sans text-xl font-bold text-slate-900 mb-5">
                 Generated Flashcards ({result.flashcards.length})
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {result.flashcards.map((card, idx) => (
                   <div
                     key={`${card.front}-${idx}`}
-                    className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow hover:border-indigo-300"
+                    className="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow"
                   >
                     <div className="mb-4">
                       <p className="text-xs font-semibold text-indigo-600 uppercase tracking-widest mb-2">
@@ -235,7 +229,7 @@ export default function FlashcardGenerator() {
                       </p>
                       <p className="text-sm font-medium text-slate-900">{card.front}</p>
                     </div>
-                    <div className="border-t border-slate-200 pt-4">
+                    <div className="border-t border-gray-200 pt-4">
                       <p className="text-xs font-semibold text-emerald-600 uppercase tracking-widest mb-2">
                         Back
                       </p>

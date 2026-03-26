@@ -6,14 +6,15 @@ export default function FeaturedTools() {
   return (
     <section
       id="tools"
-      className="border-t border-slate-200"
+      className="py-16 sm:py-20"
       aria-labelledby="tools-heading"
     >
-      <div className="max-w-6xl mx-auto px-6 py-20 sm:py-24">
+      <div className="max-w-6xl mx-auto px-6">
         {/* Header row */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-14">
           <header>
-            <span className="block text-xs font-semibold uppercase tracking-widest text-slate-600 mb-3">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-emerald-600 mb-4">
+              <span className="block w-5 h-px bg-emerald-600" aria-hidden="true" />
               AI Tools
             </span>
             <h2
@@ -26,14 +27,14 @@ export default function FeaturedTools() {
                 AI-powered tools
               </span>
             </h2>
-            <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-[54ch]">
+            <p className="text-slate-500 text-lg leading-relaxed max-w-2xl">
               Each tool targets a specific task in the preparation cycle — not a general-purpose chatbot repurposed for exams.
             </p>
           </header>
 
           <Link
             href="/tools"
-            className="text-base font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1.5 shrink-0 transition-colors"
+            className="text-base font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-2 shrink-0 transition-colors"
             aria-label="View all available tools"
           >
             View all tools
@@ -41,7 +42,7 @@ export default function FeaturedTools() {
               className="w-5 h-5"
               fill="none"
               stroke="currentColor"
-              strokeWidth={2.5}
+              strokeWidth={2}
               viewBox="0 0 24 24"
               aria-hidden="true"
             >
@@ -62,10 +63,10 @@ export default function FeaturedTools() {
         </div>
 
         {/* Free tools callout */}
-        <div className="bg-gradient-to-r from-emerald-50 to-emerald-50 border border-emerald-200 rounded-xl p-6 text-center">
-          <p className="text-sm text-slate-700">
+        <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 text-center">
+          <p className="text-slate-700">
             Tools marked{" "}
-            <span className="font-semibold text-emerald-700 bg-emerald-100 px-2 py-1 rounded text-xs uppercase tracking-wide inline-block mx-1">
+            <span className="font-semibold text-emerald-700 bg-emerald-100 px-3 py-1 rounded-lg text-sm inline-block mx-1">
               Free
             </span>{" "}
             require no account.{" "}

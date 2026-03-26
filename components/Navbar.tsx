@@ -8,7 +8,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
       <nav
         className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16"
         aria-label="Main navigation"
@@ -31,7 +31,7 @@ export default function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors duration-150"
+                className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors duration-150"
               >
                 {link.label}
               </Link>
@@ -43,13 +43,13 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-4">
           <Link
             href="/login"
-            className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors duration-150"
+            className="text-sm font-semibold text-slate-600 hover:text-slate-900 px-4 py-2 rounded-xl hover:bg-gray-50 transition-colors duration-150"
           >
-            Sign in
+            Sign In
           </Link>
           <Link
             href="/signup"
-            className="text-sm font-medium bg-indigo-600 text-white px-5 py-2.5 rounded-lg hover:bg-indigo-700 transition-colors duration-150 shadow-sm"
+            className="text-sm font-semibold bg-gradient-to-r from-indigo-600 to-indigo-500 text-white px-6 py-2.5 rounded-xl hover:from-indigo-700 hover:to-indigo-600 transition-all duration-150 shadow-md hover:shadow-lg"
           >
             Start Free
           </Link>
@@ -57,7 +57,7 @@ export default function Navbar() {
 
         {/* Mobile menu toggle */}
         <button
-          className="md:hidden p-2 -mr-2 text-slate-700 hover:text-slate-900 transition-colors"
+          className="md:hidden p-2 -mr-2 text-slate-600 hover:text-slate-900 transition-colors"
           onClick={() => setOpen(!open)}
           aria-label={open ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={open}
@@ -92,7 +92,7 @@ export default function Navbar() {
       {open && (
         <div
           id="mobile-menu"
-          className="md:hidden border-t border-slate-200 bg-white"
+          className="md:hidden border-t border-gray-200 bg-white"
         >
           <ul
             className="flex flex-col list-none m-0 p-0 px-6 py-4 gap-1"
@@ -103,22 +103,22 @@ export default function Navbar() {
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block py-2.5 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+                  className="block py-2.5 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
-            <li className="pt-4 pb-1 border-t border-slate-200 mt-3 flex flex-col gap-2">
+            <li className="pt-4 pb-1 border-t border-gray-200 mt-3 flex flex-col gap-2">
               <Link
                 href="/login"
-                className="block text-center py-2.5 text-sm font-medium text-slate-700 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+                className="block text-center py-2.5 text-sm font-semibold text-slate-600 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors"
               >
                 Sign in
               </Link>
               <Link
                 href="/signup"
-                className="block text-center py-2.5 text-sm font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                className="block text-center py-2.5 text-sm font-semibold bg-gradient-to-r from-indigo-600 to-indigo-500 text-white rounded-xl hover:from-indigo-700 hover:to-indigo-600 transition-colors"
               >
                 Start Free
               </Link>

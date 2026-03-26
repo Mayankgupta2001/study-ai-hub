@@ -57,8 +57,8 @@ export default function AnswerWritingCoach() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-white">
-      <div className="max-w-3xl mx-auto px-6 py-16">
+    <main className="min-h-screen bg-gray-50 py-16">
+      <div className="max-w-2xl mx-auto px-6">
         {/* Header */}
         <div className="mb-8">
           <Link
@@ -76,7 +76,7 @@ export default function AnswerWritingCoach() {
             </svg>
             Back to Home
           </Link>
-          <h1 className="font-dm-sans text-4xl font-bold text-slate-900 mb-2">
+          <h1 className="font-dm-sans text-3xl font-bold text-slate-900 mb-2">
             Answer Writing Coach
           </h1>
           <p className="text-slate-600 text-base leading-relaxed">
@@ -86,7 +86,7 @@ export default function AnswerWritingCoach() {
         </div>
 
         {/* Input Card */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm mb-8">
+        <div className="bg-white rounded-2xl p-8 shadow-md mb-8">
           <div className="space-y-6">
             {/* Question */}
             <div>
@@ -98,7 +98,7 @@ export default function AnswerWritingCoach() {
                 onChange={(e) => setQuestion(e.target.value)}
                 rows={3}
                 placeholder="Example: Discuss the significance of federalism in Indian polity."
-                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none text-slate-900 placeholder-slate-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none text-slate-900 placeholder-slate-500"
               />
             </div>
 
@@ -113,7 +113,7 @@ export default function AnswerWritingCoach() {
                 max={500}
                 value={wordLimit}
                 onChange={(e) => setWordLimit(e.target.value)}
-                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-900"
               />
             </div>
 
@@ -127,67 +127,48 @@ export default function AnswerWritingCoach() {
                 onChange={(e) => setAnswer(e.target.value)}
                 rows={12}
                 placeholder="Write your UPSC mains-style answer here..."
-                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none text-slate-900 placeholder-slate-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none text-slate-900 placeholder-slate-500"
               />
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex gap-3 mt-8">
-            <button
-              onClick={handleEvaluate}
-              disabled={isLoading}
-              className="flex-1 sm:flex-none px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150 inline-flex items-center justify-center gap-2 font-semibold text-sm"
-            >
-              {isLoading ? (
-                <>
-                  <svg
-                    className="w-5 h-5 animate-spin"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    />
-                    <path
-                      className="opacity-90"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                    />
-                  </svg>
-                  <span>Evaluating...</span>
-                </>
-              ) : (
-                <>
-                  <span>Evaluate Answer</span>
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
+          {/* Submit Button */}
+          <button
+            onClick={handleEvaluate}
+            disabled={isLoading || !answer.trim()}
+            className="w-full mt-8 px-6 py-4 bg-gradient-to-r from-indigo-600 to-indigo-500 text-white rounded-xl hover:from-indigo-700 hover:to-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-150 inline-flex items-center justify-center gap-2 font-semibold text-base shadow-md hover:shadow-lg"
+          >
+            {isLoading ? (
+              <>
+                <svg
+                  className="w-5 h-5 animate-spin"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
                     stroke="currentColor"
-                    strokeWidth={2.5}
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </>
-              )}
-            </button>
-            <Link
-              href="/"
-              className="px-6 py-3 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors font-semibold text-sm"
-            >
-              Back
-            </Link>
-          </div>
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-90"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  />
+                </svg>
+                <span>Analyzing...</span>
+              </>
+            ) : (
+              <span>Analyze Answer</span>
+            )}
+          </button>
 
           {error && (
-            <div className="mt-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+            <div className="mt-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
               <div className="flex gap-3">
                 <svg
                   className="w-5 h-5 flex-shrink-0"
@@ -212,118 +193,115 @@ export default function AnswerWritingCoach() {
         {result && (
           <section className="space-y-6">
             {/* Score Card */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {/* Main Score */}
-              <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center shadow-sm sm:col-span-3">
-                <p className="text-slate-600 text-sm font-semibold uppercase tracking-widest mb-3">
-                  Overall Score
-                </p>
-                <div className="flex items-baseline justify-center gap-1 mb-4">
-                  <span className={`text-6xl font-bold ${
-                    result.score >= 7
-                      ? "text-emerald-600"
-                      : result.score >= 5
-                      ? "text-amber-600"
-                      : "text-red-600"
-                  }`}>
-                    {result.score}
-                  </span>
-                  <span className="text-2xl text-slate-400">/10</span>
-                </div>
-                <p className="text-slate-700 text-base leading-relaxed max-w-2xl mx-auto">
-                  {result.examinerSummary}
-                </p>
+            <div className="bg-white rounded-2xl p-8 shadow-md text-center border-l-4 border-gray-300">
+              <p className="text-slate-500 text-sm font-semibold uppercase tracking-widest mb-3">
+                Overall Score
+              </p>
+              <div className="flex items-baseline justify-center gap-1 mb-4">
+                <span className={`text-6xl font-bold ${
+                  result.score >= 7
+                    ? "text-emerald-600"
+                    : result.score >= 5
+                    ? "text-amber-600"
+                    : "text-red-600"
+                }`}>
+                  {result.score}
+                </span>
+                <span className="text-2xl text-slate-400">/10</span>
               </div>
+              <p className="text-slate-700 text-base leading-relaxed">
+                {result.examinerSummary}
+              </p>
+            </div>
 
-              {/* Strengths */}
-              <div className="bg-gradient-to-br from-emerald-50 to-emerald-50/50 border border-emerald-200 rounded-xl p-6 shadow-sm">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
-                    <svg
-                      className="w-5 h-5 text-emerald-600"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2.5}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-slate-900">Strengths</h3>
+            {/* Strengths */}
+            <div className="bg-white rounded-2xl p-6 shadow-md border-l-4 border-emerald-500">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center">
+                  <svg
+                    className="w-5 h-5 text-emerald-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
                 </div>
-                <ul className="space-y-2">
-                  {result.strengths.map((item) => (
-                    <li key={item} className="flex gap-2 text-sm text-slate-700">
-                      <span className="text-emerald-600 font-bold flex-shrink-0">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                <h3 className="font-semibold text-slate-900">Strengths</h3>
               </div>
+              <ul className="space-y-2">
+                {result.strengths.map((item) => (
+                  <li key={item} className="flex gap-2 text-sm text-slate-700">
+                    <span className="text-emerald-600 font-bold flex-shrink-0">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-              {/* Weaknesses */}
-              <div className="bg-gradient-to-br from-red-50 to-red-50/50 border border-red-200 rounded-xl p-6 shadow-sm">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center">
-                    <svg
-                      className="w-5 h-5 text-red-600"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2.5}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-slate-900">Weaknesses</h3>
+            {/* Weaknesses */}
+            <div className="bg-white rounded-2xl p-6 shadow-md border-l-4 border-red-500">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-xl bg-red-100 flex items-center justify-center">
+                  <svg
+                    className="w-5 h-5 text-red-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
                 </div>
-                <ul className="space-y-2">
-                  {result.weaknesses.map((item) => (
-                    <li key={item} className="flex gap-2 text-sm text-slate-700">
-                      <span className="text-red-600 font-bold flex-shrink-0">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                <h3 className="font-semibold text-slate-900">Weaknesses</h3>
               </div>
+              <ul className="space-y-2">
+                {result.weaknesses.map((item) => (
+                  <li key={item} className="flex gap-2 text-sm text-slate-700">
+                    <span className="text-red-600 font-bold flex-shrink-0">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-              {/* Improvements */}
-              <div className="bg-gradient-to-br from-indigo-50 to-indigo-50/50 border border-indigo-200 rounded-xl p-6 shadow-sm">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-indigo-100 flex items-center justify-center">
-                    <svg
-                      className="w-5 h-5 text-indigo-600"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2.5}
-                        d="M13 10V3L4 14h7v7l9-11h-7z"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="font-semibold text-slate-900">Improvements</h3>
+            {/* Improvements */}
+            <div className="bg-white rounded-2xl p-6 shadow-md border-l-4 border-indigo-500">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 rounded-xl bg-indigo-100 flex items-center justify-center">
+                  <svg
+                    className="w-5 h-5 text-indigo-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
                 </div>
-                <ul className="space-y-2">
-                  {result.improvements.map((item) => (
-                    <li key={item} className="flex gap-2 text-sm text-slate-700">
-                      <span className="text-indigo-600 font-bold flex-shrink-0">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                <h3 className="font-semibold text-slate-900">Improvements</h3>
               </div>
+              <ul className="space-y-2">
+                {result.improvements.map((item) => (
+                  <li key={item} className="flex gap-2 text-sm text-slate-700">
+                    <span className="text-indigo-600 font-bold flex-shrink-0">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </section>
         )}

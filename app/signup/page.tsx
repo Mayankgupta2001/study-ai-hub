@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function SignupPage() {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,9 +40,12 @@ export default function SignupPage() {
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 700));
     setIsLoading(false);
-    setMessage("Account created successfully (mock). You can integrate backend signup later.");
-  };
+    setMessage("Signup successful! Redirecting...");
 
+    setTimeout(() => {
+      router.push("/");
+    }, 1000);
+  };
   const handleGoogle = async () => {
     setError(null);
     setMessage(null);
